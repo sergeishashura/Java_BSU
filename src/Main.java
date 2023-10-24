@@ -30,7 +30,7 @@ public class Main {
     public static void countFood(Food[] foods, Food food) {
         int count = 0;
         for (Food f : foods) {
-            if (f.equals(food)) {
+            if (f.equals(food)) {////////////////////
                 count++;
             }
         }
