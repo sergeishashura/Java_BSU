@@ -1,7 +1,4 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public class Main {
-    @SuppressWarnings("unchecked")
     public static void main(String[] args) throws Exception {
         Food[] breakfast = new Food[20];
         int itemsSoFar = 0;
@@ -18,6 +15,10 @@ public class Main {
             }
             itemsSoFar++;
         }
+        int counter = 0;
+        // coutnt productss
+
+        System.out.println("num of pies: " + counter);
         for (Food item: breakfast)
             if (item!=null)
                 item.consume();

@@ -8,10 +8,9 @@ public class Pie extends Food{
     }
 
     private String filling;
-    public Pie(String filling ) {
+    public Pie(String filling) {
         super("Пирог");
         this.filling = filling;
-
     }
     @Override
     public boolean equals(Object arg0) {
@@ -25,7 +24,6 @@ public class Pie extends Food{
     @Override
     public void consume() {
         System.out.println(  this.toString()+  " съеден");
-
     }
     @Override
     public String toString(){
