@@ -22,7 +22,7 @@ public class Main {
             if (item!=null)
                 item.consume();
             else
-                break;
+                break;//////////kkjkjkjkjkjkjkkjkjkjkkkkjkjjkkjkjkjjkkjkjjkkjkj
         System.out.println("Всего хорошего!");
     }
 }
