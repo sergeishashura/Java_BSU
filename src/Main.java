@@ -25,13 +25,5 @@ public class Main {
         System.out.println("Всего хорошего!");
     }
 
-    public static void countFood(Food[] foods, Food food) {
-        int count = 0;
-        for (Food f : foods) {
-            if (f != null && f.equals(food)) {
-                count++;
-            }
-        }
-        System.out.println("There are " + count + " products of type " + food.getClass().getSimpleName() + " in the breakfast");
-    }
+
 }
