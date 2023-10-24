@@ -18,6 +18,7 @@ public class Main {
             }
             itemsSoFar++;
         }
+        countFood(breakfast, breakfast[1]);
         for (Food item: breakfast)
             if (item!=null)
                 item.consume();
@@ -25,4 +26,14 @@ public class Main {
                 break;//////////kkjkjkjkjkjkjkkjkjkjkkkkjkjjkkjkjkjjkkjkjjkkjkj
         System.out.println("Всего хорошего!");
     }
+
+    public static void countFood(Food[] foods, Food food) {
+        int count = 0;
+        for (Food f : foods) {
+            if (f.equals(food)) {
+                count++;
+            }
+        }
+        System.out.println("There are " + count + " products of type " + food.getClass().getSimpleName() + " in the breakfast");
+        }
 }
