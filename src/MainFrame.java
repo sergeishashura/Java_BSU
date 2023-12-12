@@ -3,11 +3,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 
 import javax.swing.*;
@@ -68,15 +64,21 @@ public class MainFrame extends JFrame {
 		};
 		saveToTextMenuItem = fileMenu.add(saveToTextAction); // Добавить соответствующий пункт подменю в меню "Файл"
 		saveToTextMenuItem.setEnabled(false); // По умолчанию пункт меню является недоступным (данных ещѐ нет)
-		
-		Action saveToGraphicsAction = new AbstractAction("Сохранить данные для построения графика") { // Создать новое "действие" по сохранению в текстовый файл
+
+		Action saveToGraphicsAction = new AbstractAction("Сохранить данные для построения графика") {
 			public void actionPerformed(ActionEvent event) {
 				if (fileChooser == null) {
-					fileChooser = new JFileChooser(); // Если экземпляр диалогового окна "Открыть файл" ещѐ не создан,то создать его
-					fileChooser.setCurrentDirectory(new File(".")); // и инициализировать текущей директорией
+					fileChooser = new JFileChooser();
+					fileChooser.setCurrentDirectory(new File("."));
 				}
-				if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) // Показать диалоговое окно
-					saveToGraphicsFile(fileChooser.getSelectedFile()); // Если результат его показа успешный, сохранить данные в двоичный файл
+				if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					try {
+						saveToBinaryFile(selectedFile);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		};
 		saveToGraphicsMenuItem = fileMenu.add(saveToGraphicsAction); // Добавить соответствующий пункт подменю в меню "Файл"
@@ -190,17 +192,13 @@ public class MainFrame extends JFrame {
 		getContentPane().add(hBoxResult, BorderLayout.CENTER); //Установить контейнер hBoxResult в главной (центральной) области граничной компоновки
 	}
 
-	protected void saveToGraphicsFile(File selectedFile) {
-		try {
-			DataOutputStream out = new DataOutputStream(new FileOutputStream(selectedFile)); //Создать новый байтовый поток вывода, направленный в указанный файл
-			for (int i = 0; i < data.getRowCount(); i++) { //Записать в поток вывода попарно значение X в точке,значение многочлена в точке
+	public void saveToBinaryFile(File selectedFile) throws IOException {
+		try (DataOutputStream out = new DataOutputStream(new FileOutputStream(selectedFile))) {
+			for (int i = 0; i < data.getRowCount(); i++) {
 				out.writeDouble((Double) data.getValueAt(i, 0));
 				out.writeDouble((Double) data.getValueAt(i, 1));
-				out.writeDouble((Double) data.getValueAt(i, 2));
-				out.writeDouble((Double) data.getValueAt(i, 3));
 			}
-			out.close(); //Закрыть поток вывода
-		} catch (Exception e) {}
+		}
 	}
 
 	protected void saveToTextFile(File selectedFile) {
