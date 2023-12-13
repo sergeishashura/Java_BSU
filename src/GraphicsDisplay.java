@@ -1,3 +1,5 @@
+package bsu.rfe.java.group7.lab4.vinnik.varA4;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -124,41 +126,33 @@ public class GraphicsDisplay extends JPanel {
 		}
 		canvas.draw(graphics);
 	}
-
+	
 	private void drawCustomMarker(Graphics2D canvas, Point2D.Double center) {
-		int size = 11;
-		int halfSize = size / 2;
+	    int size = 11;
+	    int halfSize = size / 2;
 
-		int[] xPoints = { (int) center.getX(), (int) (center.getX() - halfSize), (int) (center.getX() + halfSize) };
-		int[] yPoints = { (int) (center.getY() - halfSize), (int) (center.getY() + halfSize), (int) (center.getY() + halfSize) };
+	    int[] xPoints = { (int) center.getX(), (int) (center.getX() - halfSize), (int) center.getX(),
+	            (int) (center.getX() + halfSize) };
+	    int[] yPoints = { (int) (center.getY() - halfSize), (int) center.getY(), (int) (center.getY() + halfSize),
+	            (int) center.getY() };
 
-		GeneralPath triangle = new GeneralPath();
-		triangle.moveTo(xPoints[0], yPoints[0]);
-		for (int i = 1; i < xPoints.length; i++) {
-			triangle.lineTo(xPoints[i], yPoints[i]);
-		}
-		triangle.closePath();
-
-		canvas.draw(triangle);
+	    canvas.drawPolygon(xPoints, yPoints, 4);
 	}
-
+	
 	protected void paintMarkers(Graphics2D canvas) {
-		canvas.setStroke(markerStroke);
-		canvas.setColor(Color.BLACK);
+	    canvas.setStroke(markerStroke);
+	    canvas.setColor(Color.BLACK);
 
-		for (Double[] point : graphicsData) {
-			int ram = (int) (point[1] % 2);
-
-			// Проверяем, находится ли значение функции в пределах 0.1 диапазона от целого числа
-			double fractionPart = Math.abs(point[1] - Math.round(point[1]));
-			if (fractionPart <= 0.1)
-				canvas.setPaint(Color.GREEN);
-			else
-				canvas.setPaint(Color.BLACK);
-
-			Point2D.Double center = xyToPoint(point[0], point[1]);
-			drawCustomMarker(canvas, center);
-		}
+	    for (Double[] point : graphicsData) {
+	    	int ram = (int) (point[1] % 2);
+	    	
+		    if (ram == 1)
+			    canvas.setPaint(Color.GREEN);
+		    else
+		    	canvas.setPaint(Color.BLACK);
+	        Point2D.Double center = xyToPoint(point[0], point[1]);
+	        drawCustomMarker(canvas, center);
+	    }
 	}
 	
 	protected void paintAxis(Graphics2D canvas) {
