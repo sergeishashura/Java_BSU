@@ -1,5 +1,3 @@
-package bsu.rfe.java.group7.lab4.vinnik.varA4;
-
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
