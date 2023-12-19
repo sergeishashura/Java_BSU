@@ -27,3 +27,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+/.idea
+/src/.idea
+LABA_JAVA_1.iml
